@@ -61,3 +61,40 @@ body, html {
 	background-color: #f7f7f7;
 	overflow: hidden;
 }
+
+// scss variables
+$background-color: rgb(228,228,228);
+$background-gradient: linear-gradient(0deg, rgb(216, 216, 216) 0%, rgba(255,255,255,1) 25%);
+$nav-color: rgb(31, 92, 57);
+
+// align items center flex
+%centerItems {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// main page main container
+.homeContainer {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: 55px auto;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	grid-template-areas: 
+	'navbar'
+	'mainContent'
+	;
+
+	// nav
+	.navContainer {
+		grid-area: navbar;
+	}
+
+	// landing page 
+	.landingPageContentContainer {
+		background: $background-color;
+		background: $background-gradient;
+	}
+}

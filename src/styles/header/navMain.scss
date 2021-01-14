@@ -64,61 +64,18 @@ body, html {
 
 // scss variables
 $nav-color: rgb(31, 92, 57);
-$background-color: rgb(228,228,228);
 
-// animation for color change
-@keyframes textColorChange {
-	from {
-		color: rgb(228,228,228);
-	}
-	to {
-		color: rgb(190, 190, 190);
-	}
+// align items center flex
+%centerItems {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-// button for login
-.loginButton {
-	border: none;
-	background-color: $nav-color;
-	position: absolute;
-	right: 10px;
-	height: 100%;
-	width: 200px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	outline: none;
-	cursor: pointer;
-
-	h3 {
-		color: $background-color;
-		letter-spacing: 1px;
-		font-size: 15px;
-	}
-}
-
-.loginButton:hover {
-	h3 {
-		animation: textColorChange 1s forwards;
-	}
-}
-
-// div for displaying name
-.loginDiv {
-	border: none;
-	background-color: $nav-color;
-	position: absolute;
-	right: 10px;
-	height: 100%;
-	width: 200px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	outline: none;
-
-	h3 {
-		color: $background-color;
-		letter-spacing: 1px;
-		font-size: 15px;
-	}
+.navBarContainer {
+    background-color: $nav-color;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
 }

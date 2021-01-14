@@ -26,9 +26,9 @@ const App = () => {
   // local state
   const [ content, setContent ] = useState<JSX.Element>()
 
+  // on authentication save user email to redux
   useEffect( () => {
     if (isAuthenticated) {
-      console.log(user)
       dispatch(addAuth(
           {
             username: user.name,
@@ -42,17 +42,23 @@ const App = () => {
 
   // handle the auth
   useEffect( () => {
+    // if authenticated route to home page
     if (isAuthenticated) {
       setContent(
         <Router>
           <Route exact path = '/' render={ () => <Home />}/>
         </Router>
       )
+    // no auth let them view the standard landing page
     } else {
       setContent(
         <div className="mainPageContainer">
-          <h1>CryptoViewer</h1>
-          <NavBar />
+          <div className='navContainer'>
+            <NavBar />
+          </div>
+          <div className='landingPageContentContainer'>
+            <h1>CryptoViewer</h1>
+          </div>
         </div>
       )
     }
