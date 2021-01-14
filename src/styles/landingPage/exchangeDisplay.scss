@@ -63,73 +63,52 @@ body, html {
 }
 
 // scss variables
-$background-color: rgb(228,228,228);
-$background-gradient: linear-gradient(0deg, rgb(216, 216, 216) 0%, rgba(255,255,255,1) 25%);
-$nav-color: rgb(31, 92, 57);
 $font-color: rgb(59, 59, 59);
+$font-color-hover: rgb(59, 59, 59);
+$nav-color: rgb(31, 92, 57);
 
-// align items center flex
-%centerItems {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+// animation for color change
+@keyframes textColorChange {
+	from {
+        color: $font-color;
+        text-shadow: none;
+	}
+	to {
+        color: $nav-color;
+        text-shadow: .02px .02px $nav-color;
+	}
 }
 
-// main page main container
-.mainPageContainer {
-	color: $font-color;
-	display: grid;
-	grid-template-columns: auto;
-	grid-template-rows: 55px auto;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	grid-template-areas: 
-	'navbar'
-	'mainContent'
-	;
+.exchangeDisplayContainer {
+    width: 80%;
+    height: 85%;
+    min-height: 300px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 
-	// nav
-	.navContainer {
-		grid-area: navbar;
-	}
+    h2 {
+        text-align: center;
+        margin: 10px;
+        letter-spacing: 1px;
+    }
 
-	// landing page 
-	.landingPageContentContainer {
-		grid-area: mainContent;
-		background: $background-color;
-		background: $background-gradient;
-		height: 100vh;
-		display: grid;
-		grid-template-columns: 400px auto;
-		grid-template-rows: auto;
-		grid-template-areas: 
-		'exchangeScroll exchangeView'
-		;
+    .scrollContainer {
+        overflow-y: auto;
+        height: 90%;
 
-		// title
-		h1 {
-			position: absolute;
-			width: 100vw;
-			text-align: center;
-			margin: 10px;
-			letter-spacing: 1px;
-			font-size: 20px;
-		}
-
-		// scroll page
-		.exchangeScroll {
-			grid-area: exchangeScroll;
-			height: 90%;
-			min-height: 300px;
-			@extend %centerItems;
-		}
-
-		// main item after selection
-		.singleElementContainer {
-			grid-area: exchangeView;
-			padding-top: 30px;
-			min-height: 300px;
-		}
-	}
+        .scrollArrayItem {
+            margin: 10px;
+            h3 {
+                cursor: pointer;
+            }
+        }
+        .scrollArrayItem:hover {
+            h3 {
+                animation: textColorChange .7s forwards;
+            }
+        }
+    }
 }

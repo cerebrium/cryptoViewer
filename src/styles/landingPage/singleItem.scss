@@ -63,73 +63,26 @@ body, html {
 }
 
 // scss variables
-$background-color: rgb(228,228,228);
-$background-gradient: linear-gradient(0deg, rgb(216, 216, 216) 0%, rgba(255,255,255,1) 25%);
-$nav-color: rgb(31, 92, 57);
 $font-color: rgb(59, 59, 59);
+$font-color-hover: rgb(59, 59, 59);
+$nav-color: rgb(31, 92, 57);
 
-// align items center flex
-%centerItems {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.singleItemBox {
+    color: $font-color;
+    width: 90%;
+    margin: 0 auto;
+    h2 {
+        text-align: center;
+        letter-spacing: 1px;
+        font-size: 20px;
+    }
 
-// main page main container
-.mainPageContainer {
-	color: $font-color;
-	display: grid;
-	grid-template-columns: auto;
-	grid-template-rows: 55px auto;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-	grid-template-areas: 
-	'navbar'
-	'mainContent'
-	;
+    // inner div
+    .innerDisplay {
+        margin: 10px;
 
-	// nav
-	.navContainer {
-		grid-area: navbar;
-	}
-
-	// landing page 
-	.landingPageContentContainer {
-		grid-area: mainContent;
-		background: $background-color;
-		background: $background-gradient;
-		height: 100vh;
-		display: grid;
-		grid-template-columns: 400px auto;
-		grid-template-rows: auto;
-		grid-template-areas: 
-		'exchangeScroll exchangeView'
-		;
-
-		// title
-		h1 {
-			position: absolute;
-			width: 100vw;
-			text-align: center;
-			margin: 10px;
-			letter-spacing: 1px;
-			font-size: 20px;
-		}
-
-		// scroll page
-		.exchangeScroll {
-			grid-area: exchangeScroll;
-			height: 90%;
-			min-height: 300px;
-			@extend %centerItems;
-		}
-
-		// main item after selection
-		.singleElementContainer {
-			grid-area: exchangeView;
-			padding-top: 30px;
-			min-height: 300px;
-		}
-	}
+        h3 {
+            margin: 5px;
+        }
+    }
 }

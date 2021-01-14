@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import './styles/App.scss';
 import NavBar from './components/navBar/navBar'
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,19 +12,78 @@ import {
   selectAuth,
   addAuth
 } from './features/authSlice'
+import { BackedObjects } from './types'
+import ExchangeDisplay from './components/landingPage/ExchangeDisplay'
+import SingleItem from './components/landingPage/SingleItem'
 
 const App = () => {
-  // auth0
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { user, isAuthenticated, isLoading } = useAuth0();
-
-  // redux
+    // redux
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const authData = useSelector(selectAuth)
   const dispatch = useDispatch();
 
   // local state
   const [ content, setContent ] = useState<JSX.Element>()
+
+    // api data
+    const [ apiData, setApiData ] = useState<Array<BackedObjects>>([])
+
+    // render main component on selectiong
+    const [ mainDisplayComponent, setMainDisplayComponent ] = useState<JSX.Element>()
+
+  // auth0
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  // api functions
+  // post
+  async function postData(url = '', data={}) {
+    const response = await fetch(url, { 
+        method: 'POST', 
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return response ? response.json() : console.log('no reponse')
+  }; 
+
+  // get
+  let apiKey: string | undefined = process.env.COIN_BASE_API_KEY
+  async function getData(url = '') {
+    const response = await fetch(url, { 
+        method: 'GET', 
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CoinAPI-Key': `${apiKey}`,
+        }
+    });
+    return response ? response.json() : console.log('no reponse')
+  }; 
+
+  // retrive data
+  useEffect( () => {
+    let localStorageExchanges = localStorage.getItem('exchanges')
+    if (localStorageExchanges !== null) {
+      if (localStorageExchanges.length > 0) {
+        setApiData(JSON.parse(localStorageExchanges))
+      }
+    } else {
+      getData('https://rest.coinapi.io/v1/exchanges/').then( response => {
+        console.log('api request')
+        if (response.length > 0) {
+          localStorage.setItem('exchanges', JSON.stringify(response))
+        }
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // on authentication save user email to redux
   useEffect( () => {
@@ -39,6 +98,16 @@ const App = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
+
+  // if item selected set as main item
+  const handleSelectingMainItem = (e: React.SyntheticEvent<EventTarget>, selectedItem: BackedObjects) => {
+    console.log(selectedItem)
+    if (selectedItem) {
+      setMainDisplayComponent(
+        <SingleItem data={selectedItem}/>
+      )
+    }
+  }
 
   // handle the auth
   useEffect( () => {
@@ -57,12 +126,21 @@ const App = () => {
             <NavBar />
           </div>
           <div className='landingPageContentContainer'>
-            <h1>CryptoViewer</h1>
+            <div className='exchangeScroll'>
+              <ExchangeDisplay 
+                data={apiData}
+                selectItem={handleSelectingMainItem}
+              />
+            </div>
+            <div className='singleElementContainer'>
+              {mainDisplayComponent}
+            </div>
           </div>
         </div>
       )
     }
-  }, [isAuthenticated])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, apiData, mainDisplayComponent])
 
   return (
     <>
