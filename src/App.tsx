@@ -15,6 +15,7 @@ import {
 import { BackedObjects } from './types'
 import ExchangeDisplay from './components/landingPage/ExchangeDisplay'
 import SingleItem from './components/landingPage/SingleItem'
+import ScrollTop from './components/landingPage/ScrollTop'
 
 const App = () => {
     // redux
@@ -52,7 +53,7 @@ const App = () => {
   }; 
 
   // get
-  let apiKey: string | undefined = process.env.COIN_BASE_API_KEY
+  let apiKey: string | undefined = process.env.REACT_APP_COIN_BASE_API_KEY
   async function getData(url = '') {
     const response = await fetch(url, { 
         method: 'GET', 
@@ -75,8 +76,8 @@ const App = () => {
         setApiData(JSON.parse(localStorageExchanges))
       }
     } else {
-      getData('https://rest.coinapi.io/v1/exchanges/').then( response => {
-        console.log('api request')
+      getData('https://rest.coinapi.io/v1/assets/').then( response => {
+        console.log(response)
         if (response.length > 0) {
           localStorage.setItem('exchanges', JSON.stringify(response))
         }
@@ -101,7 +102,6 @@ const App = () => {
 
   // if item selected set as main item
   const handleSelectingMainItem = (e: React.SyntheticEvent<EventTarget>, selectedItem: BackedObjects) => {
-    console.log(selectedItem)
     if (selectedItem) {
       setMainDisplayComponent(
         <SingleItem data={selectedItem}/>
@@ -124,6 +124,9 @@ const App = () => {
         <div className="mainPageContainer">
           <div className='navContainer'>
             <NavBar />
+          </div>
+          <div className='scrollTopContainer'>
+            <ScrollTop data={apiData}/>
           </div>
           <div className='landingPageContentContainer'>
             <div className='exchangeScroll'>

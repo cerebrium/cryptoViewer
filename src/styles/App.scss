@@ -80,12 +80,13 @@ $font-color: rgb(59, 59, 59);
 	color: $font-color;
 	display: grid;
 	grid-template-columns: auto;
-	grid-template-rows: 55px auto;
+	grid-template-rows: 55px 35px auto;
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
 	grid-template-areas: 
 	'navbar'
+	'scrollbar'
 	'mainContent'
 	;
 
@@ -99,7 +100,7 @@ $font-color: rgb(59, 59, 59);
 		grid-area: mainContent;
 		background: $background-color;
 		background: $background-gradient;
-		height: 100vh;
+		height: 90vh;
 		display: grid;
 		grid-template-columns: 400px auto;
 		grid-template-rows: auto;
@@ -132,4 +133,8 @@ $font-color: rgb(59, 59, 59);
 			min-height: 300px;
 		}
 	}
+}
+
+.scrollTopContainer {
+	margin-top: 5px;
 }

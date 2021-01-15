@@ -16,12 +16,18 @@ const ExchangeDisplay = (props: propTypes) => {
     useEffect( () => {
         if (props.data.length > 0) {
             let localObjectsArray: Array<JSX.Element> = []
+            let localCount = 0
             props.data.forEach( (element, elemntId) => {
-                localObjectsArray.push(
-                    <div className='scrollArrayItem' onClick={(e: React.SyntheticEvent) => props.selectItem(e, element)}>
-                        <h3>{element.name}</h3>
-                    </div>
-                )
+                if (localCount < 200) {
+                    if (element.price_usd ) {
+                        localObjectsArray.push(
+                            <div className='scrollArrayItem' onClick={(e: React.SyntheticEvent) => props.selectItem(e, element)}>
+                                <h3>{element.name}</h3>
+                            </div>
+                        )
+                        localCount++
+                    }
+                }
             })
             setRenderObjects(localObjectsArray)
         }
