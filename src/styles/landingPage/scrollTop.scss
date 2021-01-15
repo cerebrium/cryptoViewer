@@ -70,13 +70,16 @@ $font-color: rgb(59, 59, 59);
 
 
 .scrollTopContainer {
-    background-color: #ffffff00;
-    display: flex;
-    position: relative;
+	background-color: #ffffff;
+	display: flex;
+	height: 50%;
+	position: relative;
+	margin-top: 10px;
     .innerScrollContainer {
-        background-color: #ffffff;
+		background-color: #ffffff;
         position: absolute;
         display: flex;
+		background-color: #ffffff;
         .scrollArrayItem {
             display: flex;
             align-items: center;

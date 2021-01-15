@@ -78,9 +78,10 @@ $font-color: rgb(59, 59, 59);
 // main page main container
 .mainPageContainer {
 	color: $font-color;
+	background-color: #ffffff;
 	display: grid;
 	grid-template-columns: auto;
-	grid-template-rows: 55px 35px auto;
+	grid-template-rows: 55px 55px auto;
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
